@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/LoginScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Login Page'),
     );
   }
 }
@@ -51,10 +52,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  int sum = 0;
-  var test = 0.0;
-  int a;
-
+  bool activeFlatButtonColor=true;
+  bool activeRaisedButtonColor=true;
+ bool activeFlat1ButtonColor=true;
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -65,13 +65,26 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
-
-  void testFunction() {
-    //click working
+  void changeFlatButtonColor() {
+    setState(() {
+      activeFlatButtonColor = !activeFlatButtonColor;
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
   }
-
-  void raisedFun() {
-    //raised working
+  void changeRaisedButtonColor(){
+  //   if(activeRaisedButtonColor){
+  //   activeRaisedButtonColor=false;
+  // }
+  //   else {
+  //     activeRaisedButtonColor=true;
+    setState(() {
+      activeRaisedButtonColor=!activeRaisedButtonColor;
+    });
+  }
+  void changeFlat1ButtonColor(){
+    setState(() {
+      activeFlat1ButtonColor= !activeFlat1ButtonColor;
+    });
   }
 
   @override
@@ -118,9 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            FlatButton(onPressed: testFunction, child: Text('Hello button')),
-            RaisedButton(onPressed: raisedFun, child: Text('Heeyyyy'),
-            )
+           // FlatButton(onPressed: null, child: null),
+            FlatButton(onPressed: changeFlatButtonColor, child: Text('Hello button'),
+                color: activeFlatButtonColor? Colors.blue:Colors.pink),
+            RaisedButton(onPressed: changeRaisedButtonColor, child: Text('Heeyyyy'),
+              color: activeRaisedButtonColor? Colors.yellow:Colors.purple,
+            ),
+            Text("Samia", style: TextStyle(color: activeFlat1ButtonColor? Colors.red:Colors.green)),
+            FlatButton(onPressed:changeFlat1ButtonColor , child: Text('press me'),color:Colors.deepOrange),
           ],
         ),
       ),
